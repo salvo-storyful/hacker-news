@@ -5,6 +5,12 @@ import React, { useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Pagination from 'react-bootstrap/Pagination';
 import { useState } from 'react';
+import {
+  getMaxItem,
+  getTopStories,
+  getBestStories,
+  getNewStories,
+} from '../api/storiesApi';
 
 let active = 2;
 let items = [];
@@ -17,50 +23,26 @@ for (let number = 1; number <= 5; number++) {
 }
 
 function Body() {
-  const [maxItem, setMaxItem] = useState(0);
-  const [stories, setStories] = useState([]);
+  const [maxItem, setMaxItem] = useState(getMaxItem);
+  const [topStories, setTopStories] = useState(getTopStories);
+  const [bestStories, setBestStories] = useState(getBestStories);
+  const [newStories, setNewStories] = useState(getNewStories);
   const [loading, setLoading] = useState(false);
 
-  const getMaxItem = async () => {
-    fetch(`https://hacker-news.firebaseio.com/v0/maxitem.json`)
-      .then((response) => response.json())
-      .then((data) => setMaxItem(data));
-  };
+  // useEffect(() => {
+  // getMaxItem();
+  // getTopStories();
+  // getBestStories();
+  // getNewStories();
+  // }, []);
 
-  useEffect(() => {
-    getMaxItem();
-    console.log(maxItem);
-    // if (maxItem >= 1) {
-    //   while (stories.length < 1) {
-    //     let i = 0;
-    //     let itemId = maxItem - i;
-    //     fetch(`https://hacker-news.firebaseio.com/v0/item/${itemId}.json`)
-    //       .then((response) => response.json())
-    //       .then((data) => {
-    //         if (data.type === 'story') {
-    //           setStories([...stories, data]);
-    //         }
-    //         console.log(i);
-    //         i++;
-    //       })
-    //       .catch((error) => {
-    //         console.log(error);
-    //       });
-    //   }
-    // }
-    fetch(`https://hacker-news.firebaseio.com/v0/item/${maxItem}.json`)
-      .then((response) => response.json())
-      .then((data) => {
-        setStories([...stories, data]);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [maxItem]);
-
-  useEffect(() => {
-    console.log(stories);
-  }, [stories]);
+  // useEffect(() => {
+  //   console.log('maxItem: ', maxItem);
+  //   console.log('topStories', topStories);
+  //   console.log('bestStories', bestStories);
+  //   console.log('newStories', newStories);
+  // }, [maxItem, topStories, bestStories, newStories]);
+  console.log('newStories', newStories);
 
   return (
     <Container>
