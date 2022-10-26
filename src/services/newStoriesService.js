@@ -28,7 +28,7 @@ export default async function NewStoriesService() {
         });
     }
     getStoryIds();
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (stories.length) {
@@ -47,5 +47,5 @@ export default async function NewStoriesService() {
           });
       });
     }
-  }, [stories]);
+  }, [dispatch, stories]);
 }
