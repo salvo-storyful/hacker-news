@@ -18,7 +18,7 @@ for (let number = 1; number <= 5; number++) {
 
 function Body() {
   return (
-    <Container>
+    <Container className='stories-grid'>
       <Row>
         <NewStories />
       </Row>

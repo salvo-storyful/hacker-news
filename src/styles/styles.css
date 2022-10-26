@@ -1,0 +1,45 @@
+.stories-grid {
+    background-color: #999;
+}
+
+.card {
+    margin: 1%;
+    width: 23%;
+}
+
+@media only screen and (max-width: 991px) {
+    /* For smaller screen or tablets: */
+    .card {
+      width: 48%;
+    }
+  }
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  .card {
+    width: 100%;
+  }
+}
+
+.card a {
+    text-decoration: none;
+}
+
+.card-body {
+    height: 165px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-title {
+    font-size: .9rem;
+    color: #333;
+}
+
+.card-text {
+    font-size: 0.7rem;
+    color: #777;
+    display: flex;
+    flex-direction: column;
+}
