@@ -3,10 +3,11 @@ import { useSelector } from 'react-redux';
 import NewStoriesService from '../../services/newStoriesService';
 import Card from 'react-bootstrap/Card';
 import newsPlaceholder from '../../assets/news-placeholder.png';
-export function NewStories() {
+
+export function NewStories({ currentPage }) {
   NewStoriesService();
   const stories = useSelector((state) => state.newStories.stories);
-  const paginatedStories = paginate(stories, 12, 1);
+  const paginatedStories = paginate(stories, 12, currentPage);
   function paginate(array, page_size, page_number) {
     return array.slice((page_number - 1) * page_size, page_number * page_size);
   }

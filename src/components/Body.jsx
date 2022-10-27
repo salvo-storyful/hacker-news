@@ -37,7 +37,7 @@ function Body() {
   return (
     <Container className='stories-grid'>
       <Row>
-        <NewStories />
+        <NewStories currentPage={currentPage} />
       </Row>
       <Row>
         <Pagination>
