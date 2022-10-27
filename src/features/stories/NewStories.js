@@ -6,6 +6,10 @@ import newsPlaceholder from '../../assets/news-placeholder.png';
 export function NewStories() {
   NewStoriesService();
   const stories = useSelector((state) => state.newStories.stories);
+  const paginatedStories = paginate(stories, 12, 1);
+  function paginate(array, page_size, page_number) {
+    return array.slice((page_number - 1) * page_size, page_number * page_size);
+  }
   const getDomain = (url) => {
     const originalURL = new URL(url);
     const domain = originalURL.hostname;
@@ -14,8 +18,8 @@ export function NewStories() {
 
   return (
     <>
-      {stories &&
-        stories.map((story, key) => (
+      {paginatedStories &&
+        paginatedStories.map((story, key) => (
           <Card key={key}>
             <a target='_blank' rel='noreferrer' href={story.url}>
               <Card.Img variant='top' src={newsPlaceholder} />
