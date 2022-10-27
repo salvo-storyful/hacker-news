@@ -1,29 +1,39 @@
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Pagination from 'react-bootstrap/Pagination';
 import { NewStories } from '../features/stories/NewStories';
 
 function Body() {
-  const [active, setActive] = useState(1);
+  const totalStories = 500;
+  const storiesperPage = 12;
+  const totalPages =
+    Math.floor(totalStories / storiesperPage) +
+    (totalStories % storiesperPage && +1);
+
+  const [currentPage, setCurrentPage] = useState(1);
   const [navigationButtons, setNavigationButtons] = useState([]);
 
   useEffect(() => {
     let items = [];
-    for (let number = 1; number <= 5; number++) {
-      items.push(
-        <Pagination.Item
-          key={number}
-          active={number === active}
-          onClick={() => setActive(number)}
-        >
-          {number}
-        </Pagination.Item>
-      );
+    const position = currentPage > 3 ? currentPage - 2 : 1;
+    const maxNumbers = currentPage > 3 ? currentPage + 2 : 5;
+    for (let number = position; number <= maxNumbers; number++) {
+      if (number <= totalPages) {
+        items.push(
+          <Pagination.Item
+            key={number}
+            active={number === currentPage}
+            onClick={() => setCurrentPage(number)}
+          >
+            {number}
+          </Pagination.Item>
+        );
+      }
     }
     setNavigationButtons(items);
-  }, [active]);
+  }, [currentPage, totalPages]);
   return (
     <Container className='stories-grid'>
       <Row>
@@ -31,25 +41,21 @@ function Body() {
       </Row>
       <Row>
         <Pagination>
-          {/* <Pagination.First />
-          <Pagination.Prev />
-          <Pagination.Item>{1}</Pagination.Item>
-          <Pagination.Ellipsis />
-
-          <Pagination.Item>{10}</Pagination.Item>
-          <Pagination.Item>{11}</Pagination.Item>
-          <Pagination.Item active>{12}</Pagination.Item>
-          <Pagination.Item>{13}</Pagination.Item>
-          <Pagination.Item disabled>{14}</Pagination.Item>
-
-          <Pagination.Ellipsis />
-          <Pagination.Item>{20}</Pagination.Item>
-          <Pagination.Next />
-          <Pagination.Last /> */}
-
-          {active > 2 && <Pagination.First />}
-          {active > 1 && <Pagination.Prev />}
+          {currentPage > 2 && (
+            <Pagination.First onClick={() => setCurrentPage(1)} />
+          )}
+          {currentPage > 1 && (
+            <Pagination.Prev onClick={() => setCurrentPage(currentPage - 1)} />
+          )}
+          {currentPage > 3 && <Pagination.Ellipsis />}
           {navigationButtons}
+          {currentPage <= totalPages - 3 && <Pagination.Ellipsis />}
+          {currentPage < totalPages - 1 && (
+            <Pagination.Next onClick={() => setCurrentPage(currentPage + 1)} />
+          )}
+          {currentPage < totalPages - 2 && (
+            <Pagination.Last onClick={() => setCurrentPage(totalPages)} />
+          )}
         </Pagination>
       </Row>
     </Container>
