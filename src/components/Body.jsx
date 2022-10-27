@@ -3,9 +3,9 @@ import Row from 'react-bootstrap/Row';
 import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Pagination from 'react-bootstrap/Pagination';
-import { NewStories } from '../features/stories/NewStories';
+import { Stories } from '../features/stories/Stories';
 
-function Body() {
+function Body({ storyType }) {
   const totalStories = 500;
   const storiesperPage = 12;
   const totalPages =
@@ -37,7 +37,7 @@ function Body() {
   return (
     <Container className='stories-grid'>
       <Row>
-        <NewStories currentPage={currentPage} />
+        <Stories currentPage={currentPage} storyType={storyType} />
       </Row>
       <Row>
         <Pagination>

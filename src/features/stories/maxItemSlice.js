@@ -14,6 +14,6 @@ export const maxItemSlice = createSlice({
   },
 });
 
-export const { updatemaxItem } = maxItemSlice.actions;
+export const { updateMaxItem } = maxItemSlice.actions;
 
 export default maxItemSlice.reducer;

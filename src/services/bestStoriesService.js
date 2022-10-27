@@ -1,30 +1,51 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { updateStories } from '../features/stories/updateStoriesSlice';
+import {
+  updateBestStories,
+  addBestStories,
+} from '../features/stories/bestStoriesSlice';
 
 export default async function BestStoriesService() {
   const dispatch = useDispatch();
+  let [stories, setStories] = useState(false);
 
   useEffect(() => {
     let url = 'https://hacker-news.firebaseio.com/v0/beststories.json';
-    const headers = new Headers();
-    const params = {
-      method: 'GET',
-      headers: headers,
-    };
 
-    fetch(url, params)
-      .then(function (response) {
-        if (response.status !== 200) {
-          console.log('Status code: ' + response.status);
-          return;
-        }
-        response.json().then(function (data) {
-          dispatch(updateStories(data));
-        });
+    async function getStoryIds() {
+      fetch(url, {
+        method: 'get',
       })
-      .catch(function (err) {
-        console.log('Error: ', err);
-      });
+        .then((res) => res.json())
+        .then(
+          await function (res) {
+            setStories(res);
+            dispatch(updateBestStories(res));
+          }
+        )
+        .catch(function (err) {
+          console.log('Error: ', err);
+        });
+    }
+    getStoryIds();
   }, [dispatch]);
+
+  useEffect(() => {
+    if (stories.length) {
+      stories.forEach((id) => {
+        let url = `https://hacker-news.firebaseio.com/v0/item/${id}.json`;
+
+        fetch(url, {
+          method: 'get',
+        })
+          .then((res) => res.json())
+          .then(function (res) {
+            dispatch(addBestStories(res));
+          })
+          .catch(function (err) {
+            console.log('Error: ', err);
+          });
+      });
+    }
+  }, [dispatch, stories]);
 }

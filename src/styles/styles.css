@@ -59,3 +59,30 @@
   display: flex;
   justify-content: center;
 }
+
+.loading {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 55vh;
+  text-align: center;
+}
+
+.loading img {
+  max-width: 350px;
+}
+
+.loading-inner {
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar .container {
+  justify-content: center;
+}
+
+.story-type-selector {
+  width: 90px;
+  margin: 0 10px;
+}
