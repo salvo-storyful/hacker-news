@@ -6,7 +6,7 @@ import React from 'react';
 function Footer() {
   return (
     <Navbar bg='light' variant='light'>
-      <Container>
+      <Container className='footer'>
         <Nav>
           <p>Hacker News &copy; 2022 - All right reserved.</p>
         </Nav>

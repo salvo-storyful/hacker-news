@@ -3,8 +3,22 @@
   padding: 2rem;
 }
 
+.menu-label {
+  margin: 0.35rem 1rem;
+}
+
+.menu-label:first-of-type {
+  margin-left: 0;
+}
+
 .stories-grid {
     background-color: #999;
+}
+
+.stories-grid h2 {
+  text-align: center;
+  color: #fff;
+  margin: 2rem;
 }
 
 .card {
@@ -13,7 +27,7 @@
 }
 
 .card:hover {
-  box-shadow: 0 0 30px 0 rgb(0 0 0 / 20%);
+  box-shadow: 0 0 30px 0 rgb(0 0 0 / 40%);
   border: 1px solid #888;
 }
 
@@ -36,7 +50,7 @@
 }
 
 .card-body {
-    height: 165px;
+    height: 180px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -78,11 +92,6 @@
   flex-direction: column;
 }
 
-.navbar .container {
-  justify-content: center;
-}
-
-.story-type-selector {
-  width: 90px;
-  margin: 0 10px;
+.footer .navbar-nav {
+  margin: 0 auto;
 }
